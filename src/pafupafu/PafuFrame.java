@@ -8,6 +8,8 @@ package pafupafu;
 import javax.swing.*;
 import java.awt.CardLayout;
 import java.awt.Toolkit;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  *
@@ -15,8 +17,11 @@ import java.awt.Toolkit;
  */
 public class PafuFrame extends javax.swing.JFrame {
     
+    private Pet pafuinst;
+    public static int GAME_TYPE = 0;
     CardLayout cl = new CardLayout();
     ImageIcon icon = new ImageIcon (Toolkit.getDefaultToolkit().getImage(getClass().getResource("images/Chibi_Cat_1_small.png")));
+    ImageIcon icon1 = new ImageIcon (Toolkit.getDefaultToolkit().getImage(getClass().getResource("images/Chibi_Cat_Base_small.png")));
 //    JPanel panelCont = new JPanel();
     /**
      * Creates new form PafuFrame
@@ -26,6 +31,10 @@ public class PafuFrame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("PafuPafu!");
         this.setIconImage(icon.getImage());
+        if (GAME_TYPE==1){
+            setupPanel.setVisible(false);
+            playPanel.setVisible(true);
+        }
     }
 
     /**
@@ -37,14 +46,7 @@ public class PafuFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton4 = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
-        loginPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        illust = new javax.swing.JLabel();
-        titleLogo = new javax.swing.JLabel();
-        newgbutton = new javax.swing.JButton();
-        loadgbutton = new javax.swing.JButton();
         setupPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -53,9 +55,11 @@ public class PafuFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
+        genderButton = new javax.swing.JToggleButton();
         playPanel = new javax.swing.JPanel();
         quitButton = new javax.swing.JButton();
         playpenPanel = new javax.swing.JPanel();
+        petGPlabel = new javax.swing.JLabel();
         actionPanel = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -67,86 +71,20 @@ public class PafuFrame extends javax.swing.JFrame {
         jProgressBar1 = new javax.swing.JProgressBar();
         jProgressBar2 = new javax.swing.JProgressBar();
 
-        jButton4.setText("jButton4");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(513, 386));
         setMinimumSize(new java.awt.Dimension(513, 386));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         mainPanel.setLayout(new java.awt.CardLayout());
 
-        illust.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pafupafu/images/Chibi_Cat_1_small.png"))); // NOI18N
-
-        titleLogo.setFont(new java.awt.Font("Buxton Sketch", 0, 48)); // NOI18N
-        titleLogo.setText("PafuPafu!");
-
-        newgbutton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        newgbutton.setText("New Game");
-        newgbutton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newgbuttonActionPerformed(evt);
-            }
-        });
-
-        loadgbutton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        loadgbutton.setText("Load Game");
-        loadgbutton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadgbuttonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(newgbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(illust))
-                            .addComponent(loadgbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(titleLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(titleLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(illust)
-                .addGap(18, 18, 18)
-                .addComponent(newgbutton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loadgbutton)
-                .addGap(18, 18, 18))
-        );
-
-        javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
-        loginPanel.setLayout(loginPanelLayout);
-        loginPanelLayout.setHorizontalGroup(
-            loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(loginPanelLayout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(137, Short.MAX_VALUE))
-        );
-        loginPanelLayout.setVerticalGroup(
-            loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(loginPanelLayout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
-        mainPanel.add(loginPanel, "panel1");
+        setupPanel.setMaximumSize(new java.awt.Dimension(537, 392));
+        setupPanel.setMinimumSize(new java.awt.Dimension(537, 392));
+        setupPanel.setName(""); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Please name your new PafuPafu!");
@@ -161,6 +99,11 @@ public class PafuFrame extends javax.swing.JFrame {
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTextField1.setToolTipText("enter a name for your PafuPafu");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Select PafuPafu breed!");
@@ -175,6 +118,14 @@ public class PafuFrame extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pafupafu/images/Chibi_Cat_1_small.png"))); // NOI18N
 
+        genderButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        genderButton.setText("Male");
+        genderButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                genderButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -188,7 +139,10 @@ public class PafuFrame extends javax.swing.JFrame {
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(58, 58, 58)
-                        .addComponent(jLabel6)))
+                        .addComponent(jLabel6))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(genderButton)))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -200,27 +154,28 @@ public class PafuFrame extends javax.swing.JFrame {
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(genderButton))
         );
 
         javax.swing.GroupLayout setupPanelLayout = new javax.swing.GroupLayout(setupPanel);
         setupPanel.setLayout(setupPanelLayout);
         setupPanelLayout.setHorizontalGroup(
             setupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(setupPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setupPanelLayout.createSequentialGroup()
                 .addContainerGap(155, Short.MAX_VALUE)
                 .addGroup(setupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setupPanelLayout.createSequentialGroup()
                         .addComponent(jButton2)
                         .addGap(32, 32, 32))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setupPanelLayout.createSequentialGroup()
-                        .addGroup(setupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(setupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(setupPanelLayout.createSequentialGroup()
-                                .addGap(17, 17, 17)
                                 .addGroup(setupPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(16, 16, 16)))
                         .addGap(148, 148, 148))))
         );
         setupPanelLayout.setVerticalGroup(
@@ -232,7 +187,7 @@ public class PafuFrame extends javax.swing.JFrame {
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(20, 20, 20))
         );
@@ -247,17 +202,25 @@ public class PafuFrame extends javax.swing.JFrame {
             }
         });
 
-        playpenPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "<get pet's name from some var>", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
+        playpenPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "s", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
+
+        petGPlabel.setText("jLabel1");
 
         javax.swing.GroupLayout playpenPanelLayout = new javax.swing.GroupLayout(playpenPanel);
         playpenPanel.setLayout(playpenPanelLayout);
         playpenPanelLayout.setHorizontalGroup(
             playpenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 339, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, playpenPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(petGPlabel)
+                .addGap(105, 105, 105))
         );
         playpenPanelLayout.setVerticalGroup(
             playpenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 213, Short.MAX_VALUE)
+            .addGroup(playpenPanelLayout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addComponent(petGPlabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jButton3.setText("jButton3");
@@ -286,7 +249,7 @@ public class PafuFrame extends javax.swing.JFrame {
                 .addComponent(jButton6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         actionPanelLayout.setVerticalGroup(
             actionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,7 +293,7 @@ public class PafuFrame extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout playPanelLayout = new javax.swing.GroupLayout(playPanel);
@@ -345,7 +308,7 @@ public class PafuFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(playPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(playPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 17, Short.MAX_VALUE)
                         .addComponent(quitButton))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -359,7 +322,7 @@ public class PafuFrame extends javax.swing.JFrame {
                 .addGroup(playPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(playpenPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(quitButton)
                 .addContainerGap())
         );
@@ -380,12 +343,6 @@ public class PafuFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void newgbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newgbuttonActionPerformed
-        // TODO add your handling code here:
-        CardLayout card = (CardLayout)mainPanel.getLayout();
-        card.show(mainPanel, "panel2");
-    }//GEN-LAST:event_newgbuttonActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         if (jTextField1.getText().equals("")) {
@@ -395,9 +352,30 @@ public class PafuFrame extends javax.swing.JFrame {
             card.show(mainPanel, "panel3");
             
             // pass values to PafuPafu data class
-            
+            if (jComboBox1.getSelectedItem().toString().equals("PafuPafu")) {
+                pafuinst = new PafuDefault();
+                pafuinst.setName(jTextField1.getText());
+                if(genderButton.isSelected())
+                    pafuinst.setGender(1);
+                else
+                    pafuinst.setGender(0);
+            } else {
+                pafuinst = new WingPafu();
+                pafuinst.setName(jTextField1.getText());
+                if(genderButton.isSelected())
+                    pafuinst.setGender(1);
+                else
+                    pafuinst.setGender(0);
+            }
+            ((javax.swing.border.TitledBorder) playpenPanel.getBorder()).setTitle(pafuinst.getName()+"'s Pen");
+            playpenPanel.repaint();
+            if (pafuinst.getType()==0) {
+                petGPlabel.setText("");
+                petGPlabel.setIcon(icon); }
+            else {
+                petGPlabel.setText("");
+                petGPlabel.setIcon(icon1); }
         }
-        jTextField1.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void quitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButtonActionPerformed
@@ -405,16 +383,9 @@ public class PafuFrame extends javax.swing.JFrame {
         
         int confirm = JOptionPane.showOptionDialog(this, "Are you sure you want to quit?", "Exit PlayPen", 0, 3, null, null, cl);
         if (confirm == JOptionPane.YES_OPTION) {
-            CardLayout card = (CardLayout)mainPanel.getLayout();
-            card.show(mainPanel, "panel1");
+            this.dispose();
+            Main.lf.showMain();
         }
-        
-        // reset all data
-        
-        // placeholder --------------
-        jProgressBar1.setValue(0);
-        jProgressBar2.setValue(0);
-        // placeholder --------------
         
     }//GEN-LAST:event_quitButtonActionPerformed
 
@@ -438,9 +409,26 @@ public class PafuFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void loadgbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadgbuttonActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_loadgbuttonActionPerformed
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void genderButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genderButtonActionPerformed
+        genderButton.addChangeListener(new ChangeListener() {
+        @Override
+        public void stateChanged(ChangeEvent event) {
+            if (genderButton.isSelected()){
+                genderButton.setText("Female");
+            } else {
+                genderButton.setText("Male");
+            }
+        }
+    });
+    }//GEN-LAST:event_genderButtonActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -478,10 +466,9 @@ public class PafuFrame extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
-    private javax.swing.JLabel illust;
+    private javax.swing.JToggleButton genderButton;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -491,20 +478,16 @@ public class PafuFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JProgressBar jProgressBar2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JButton loadgbutton;
-    private javax.swing.JPanel loginPanel;
     private javax.swing.JPanel mainPanel;
-    private javax.swing.JButton newgbutton;
+    private javax.swing.JLabel petGPlabel;
     private javax.swing.JPanel playPanel;
     private javax.swing.JPanel playpenPanel;
     private javax.swing.JButton quitButton;
     private javax.swing.JPanel setupPanel;
-    private javax.swing.JLabel titleLogo;
     // End of variables declaration//GEN-END:variables
 }
