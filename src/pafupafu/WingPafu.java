@@ -9,30 +9,12 @@ package pafupafu;
  *
  * @author Atia
  */
-public class WingPafu implements Pet {
+public class WingPafu extends PafuDefault {
     
-    private final int type = 1;
-    private String name;
-    private int gender;
+    private int type = 1;
     
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
-    
-    public String getName() {
-        return name;
-    }
-    
-    public int getGender() {
-        return gender;
-    }
-    
-    public int getType() {
-        return type;
+    public void fly() {
+        //
     }
     
 }

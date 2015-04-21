@@ -11,9 +11,9 @@ package pafupafu;
  */
 public class PafuDefault implements Pet {
     
-    private final int type=0;
-    private String name;
-    private int gender;
+    private int type = 0;
+    protected String name;
+    protected int gender;
     
     public void setName(String name) {
         this.name = name;
