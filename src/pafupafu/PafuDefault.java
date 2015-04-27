@@ -9,7 +9,7 @@ package pafupafu;
  *
  * @author Atia
  */
-public class PafuDefault implements Pet {
+public class PafuDefault implements Pet,Observer {
     
     private int type = 0;
     protected String name;
@@ -33,5 +33,9 @@ public class PafuDefault implements Pet {
     
     public int getType() {
         return type;
+    }
+    
+    public void update(boolean empty) {
+        
     }
 }
