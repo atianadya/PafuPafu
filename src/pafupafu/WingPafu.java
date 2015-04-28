@@ -5,16 +5,25 @@
  */
 package pafupafu;
 
+import java.lang.String;
 /**
  *
- * @author Atia
+ * @author Thea
  */
-public class WingPafu extends PafuDefault {
+public class WingPafu extends Pet {
     
     private int type = 1;
     
+    public boolean IsFly(){
+        if (x.y)!= (0,0){
+        return true;
+    } else {
+            return false;
+            }
+     };
     public void fly() {
-        //
-    }
+        // metode pafu bersayap
+        
+    };
     
 }
