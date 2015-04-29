@@ -17,7 +17,11 @@ public class PafuDefault implements Pet,Observer {
     protected int gender;
     private static PafuDefault pafudef;
     
-    public PafuDefault() {}
+    public PafuDefault() {
+        type= 0; 
+        name = "Sophie";
+        gender = 1;
+    }
     
     public static PafuDefault getShared() {
         if (pafudef == null)

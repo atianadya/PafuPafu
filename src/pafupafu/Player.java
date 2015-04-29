@@ -26,7 +26,7 @@ public class Player {
     ArrayList<Player> PlayerList= new ArrayList<Player>(); 
    
     public Player(){
-        PlayerName= "Aurelia";
+        PlayerName= "Sally";
         PlayerID= "01A";
         Time = "00:00:00";
     }
