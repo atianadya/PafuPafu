@@ -11,19 +11,23 @@ import java.lang.String;
  * @author Thea
  */
 public class WingPafu extends Pet {
-    
+    private int x;
+    private int y;
     private int type = 1;
     
     public boolean IsFly(){
-        if (x.y)!= (0,0){
+        if (x.y)!= (x,y){
         return true;
     } else {
             return false;
             }
      };
+    
+   
+    
     public void fly() {
         // metode pafu bersayap
-        
+        fly(x,y);
     };
     
 }
