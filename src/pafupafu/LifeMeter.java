@@ -24,9 +24,10 @@ public class LifeMeter implements Subject {
         observers.remove(observer);
     }
     public void notifyObservers() {
-        for (Observer ob : observers) {
-            ob.update();
-        }
+//        for (Observer ob : observers) {
+//            ob.update();
+//        }
+        PafuDefault.state = 0;
     }
     
     public static int getLifeVal() {
@@ -38,10 +39,16 @@ public class LifeMeter implements Subject {
     }
     
     public static void increaseLifeBy(int value) {
-        if (LifeMeter.value + value >= 5)
+        if (LifeMeter.value + value >= 5) {
             LifeMeter.value = MAX_VALUE;
-        else
+            if (LifeMeter.value == 0)
+                new LifeMeter().notifyObservers();
+        }
+        else {
             LifeMeter.value += value;
+            if (LifeMeter.value == 0)
+                new LifeMeter().notifyObservers();
+        }
     }
     
     public static void decreaseLifeBy(int value) {

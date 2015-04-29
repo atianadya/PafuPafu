@@ -457,8 +457,20 @@ public class PafuFrame extends javax.swing.JFrame {
             CardLayout card = (CardLayout)mainPanel.getLayout();
             card.show(mainPanel, "panel3");
             
+            LifeMeter lf = new LifeMeter();
+            
+            
             // pass values to PafuPafu data class
             pafuinst = new PafuDefault();
+            
+            Class pafuClass = pafuinst.getClass();
+            Class[] interfaces = pafuClass.getInterfaces();
+            for (Class implemented : interfaces) {
+                    System.out.println(implemented);
+            }
+            
+            
+            
             pafuinst.setName(jTextField1.getText());
             
             Timer timer = new Timer("t1");
@@ -499,9 +511,6 @@ public class PafuFrame extends javax.swing.JFrame {
         burger.updateMeter();
         jProgressBar1.setValue(LifeMeter.getLifeVal()*20);
         jProgressBar2.setValue(LoveMeter.getLoveVal()*20);
-        if (pafuinst.getState()==0) {
-            JOptionPane.showMessageDialog(null, "Your PafuPafu dies :(");
-        }
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -527,8 +536,7 @@ public class PafuFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void nameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextFieldActionPerformed
-        // if exists then show message box
-        // if not set new player name from here
+
     }//GEN-LAST:event_nameTextFieldActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -545,6 +553,9 @@ public class PafuFrame extends javax.swing.JFrame {
         candy.updateMeter();
         jProgressBar1.setValue(LifeMeter.getLifeVal()*20);
         jProgressBar2.setValue(LoveMeter.getLoveVal()*20);
+        if (pafuinst.getState()==0) {
+            JOptionPane.showMessageDialog(null, "Your PafuPafu dies :(");
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void evolveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evolveButtonActionPerformed

@@ -11,17 +11,13 @@ package pafupafu;
  */
 public class PafuDefault implements Pet,Observer {
     
-    protected int state = 1;
+    public static int state = 1;
     private int type = 0;
     protected String name;
     protected int gender;
     private static PafuDefault pafudef;
     
-    public PafuDefault() {
-        type= 0; 
-        name = "Sophie";
-        gender = 1;
-    }
+    public PafuDefault() {}
     
     public static PafuDefault getShared() {
         if (pafudef == null)
