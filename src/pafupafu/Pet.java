@@ -58,7 +58,7 @@ public interface Pet {
             this.age = age;
               this.pafuImg = pafuImg;
         
-        };
+        }
         
         // mengubah ekspresi
         public void update()
@@ -110,9 +110,10 @@ public interface Pet {
         return 1;
     };
     public void setState(){
-       
+        this.State();
     };
     public void onClickPetReact(){
+        MouseListener MouseList = new MouseListener();
         
         
     

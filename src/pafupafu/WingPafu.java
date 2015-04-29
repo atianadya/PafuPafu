@@ -10,7 +10,7 @@ import java.lang.String;
  *
  * @author Thea
  */
-public class WingPafu extends Pet {
+public class WingPafu implements Pet {
     private int x;
     private int y;
     private int type = 1;
@@ -23,7 +23,10 @@ public class WingPafu extends Pet {
             }
      };
     
+    
+    WingPafu Pf = new WingPafu();
    
+    System.out.println(Pf.Draw());
     
     public void fly() {
         // metode pafu bersayap
