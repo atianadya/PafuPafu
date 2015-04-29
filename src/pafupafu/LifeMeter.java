@@ -12,7 +12,9 @@ import java.util.ArrayList;
  * @author Atia
  */
 public class LifeMeter implements Subject {
-    private int value;
+    public static final int MAX_VALUE = 5;
+    public static final int MIN_VALUE = 0;
+    public static int value;
     private ArrayList<Observer> observers = new ArrayList<Observer>();
     
     public void registerObserver(Observer observer) {
@@ -23,16 +25,34 @@ public class LifeMeter implements Subject {
     }
     public void notifyObservers() {
         for (Observer ob : observers) {
-            ob.update(isEmpty());
+            ob.update();
         }
     }
     
-    public void increaseLifeBy(int value) {
-        this.value += value;
+    public static int getLifeVal() {
+        return value;
     }
     
-    public void decreaseLifeBy(int value) {
-        this.value -= value;
+    public static void setLifeValue(int value) {
+        LifeMeter.value = value;
+    }
+    
+    public static void increaseLifeBy(int value) {
+        if (LifeMeter.value + value >= 5)
+            LifeMeter.value = MAX_VALUE;
+        else
+            LifeMeter.value += value;
+    }
+    
+    public static void decreaseLifeBy(int value) {
+        if (LifeMeter.value - value >= 0) {
+            LifeMeter.value -= value;
+            if (LifeMeter.value == 0)
+                new LifeMeter().notifyObservers();
+        }
+        else {
+            LifeMeter.value = MIN_VALUE;
+        }
     }
     
     public boolean isEmpty() {

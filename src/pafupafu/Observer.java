@@ -10,5 +10,5 @@ package pafupafu;
  * @author Atia
  */
 public interface Observer {
-    public void update(boolean empty);
+    public void update();
 }

@@ -11,9 +11,19 @@ package pafupafu;
  */
 public class PafuDefault implements Pet,Observer {
     
+    protected int state = 1;
     private int type = 0;
     protected String name;
     protected int gender;
+    private static PafuDefault pafudef;
+    
+    public PafuDefault() {}
+    
+    public static PafuDefault getShared() {
+        if (pafudef == null)
+            pafudef = new PafuDefault();
+        return pafudef;
+    }
     
     public void setName(String name) {
         this.name = name;
@@ -31,11 +41,15 @@ public class PafuDefault implements Pet,Observer {
         return gender;
     }
     
+    public int getState() {
+        return state;
+    }
+    
     public int getType() {
         return type;
     }
     
-    public void update(boolean empty) {
-        
+    public void update() {
+        state = 0;
     }
 }

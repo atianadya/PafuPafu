@@ -12,7 +12,9 @@ import java.util.ArrayList;
  * @author Atia
  */
 public class LoveMeter implements Subject {
-    private int value;
+    public static final int MAX_VALUE = 5;
+    public static final int MIN_VALUE = 0;
+    public static int value;
     private ArrayList<Observer> observers = new ArrayList<Observer>();
     
     public void registerObserver(Observer observer) {
@@ -23,16 +25,36 @@ public class LoveMeter implements Subject {
     }
     public void notifyObservers() {
         for (Observer ob : observers) {
-            ob.update(isEmpty());
+            ob.update();
         }
     }
     
-    public void increaseLoveBy(int value) {
-        this.value += value;
+    public static void setLoveValue(int value) {
+        LoveMeter.value = value;
     }
     
-    public void decreaseLoveBy(int value) {
-        this.value -= value;
+    public static int getLoveVal() {
+        return value;
+    }
+    
+    public static void increaseLoveBy(int value) {
+        if (LoveMeter.value + value >= 5) {
+            LoveMeter.value = MAX_VALUE;
+        }
+        else {
+            LoveMeter.value += value;
+        }
+    }
+    
+    public static void decreaseLoveBy(int value) {
+        if (LoveMeter.value - value >= 0) {
+            LoveMeter.value -= value;
+            if (LoveMeter.value == 0)
+                new LoveMeter().notifyObservers();
+        }
+        else {
+            LoveMeter.value = MIN_VALUE;
+        }
     }
     
     public boolean isEmpty() {

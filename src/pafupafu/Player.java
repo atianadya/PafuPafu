@@ -22,6 +22,7 @@ public class Player {
     private String PlayerName; 
     private String PlayerID; 
     private String Time;
+    public static int elapsedTime;
     ArrayList<Player> PlayerList= new ArrayList<Player>(); 
    
     public Player(){
@@ -49,6 +50,10 @@ public class Player {
         return PlayerID;
     } 
     
+    public static void incrementElapsedTime() {
+        elapsedTime++;
+    }
+    
     public void addPlayertoPlayerList(){
         PlayerList.add(this);
     }
@@ -57,36 +62,30 @@ public class Player {
       String tmp1 = getPlayerID();
       PrintWriter pw = new PrintWriter(new FileOutputStream(fileName));
       pw.write(tmp);
-      //pw.write(tmp1);
       pw.close();
     }
     public String getTime(){
        Calendar cal = Calendar.getInstance();
        cal.getTime();
        SimpleDateFormat sdf = new SimpleDateFormat("HH:MM:SS");
-       String time = sdf.format(cal.getTime()).toString();
+       String time = sdf.format(cal.getTime());
        Time = time; 
        return time; 
     }
+    
+    public int getElapsedTime() {
+        return elapsedTime;
+    }
+    
+    public void setElapsedTime(int time) {
+        elapsedTime = time;
+    }
+    
     public void showPlayerList(){
         for(int i = 0; i<PlayerList.size();i++){
             System.out.println(getPlayerName());
             System.out.println(getPlayerID());
             System.out.println(getTime());
         }
-    }
-    public static void main (String[]args) throws FileNotFoundException{
-       Player a = new Player();
-       Scanner input = new Scanner(System.in);
-       
-       System.out.println("Input Name Player");
-       String playername = input.nextLine();
-       System.out.println("Input Player ID");
-       String playerid = input.nextLine();
-       a.setPlayerName(playername);
-       a.setPlayerID(playerid);
-       a.addPlayertoPlayerList();
-       a.showPlayerList();
-       a.save("user.txt");
     }
 }

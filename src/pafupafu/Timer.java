@@ -13,6 +13,7 @@ public class Timer extends Thread {
     private Thread t;
     private String threadName;
     public static boolean timerFlag = false;
+    public int localtime=0;
     
     Timer(String name) {
         threadName = name;
@@ -22,13 +23,12 @@ public class Timer extends Thread {
         try {
             while (!timerFlag) {
                 // counter
-                // player's time++;
+                localtime++;
+                Player.incrementElapsedTime();
                 Thread.sleep(1000);
             }
-//            endTime = System.nanoTime();
-//            long elapsedTime = (endTime-startTime)/1000000000; // in seconds
-//            System.out.println("elapsed time: "+elapsedTime+"s");
             timerFlag = false;
+            System.out.println("current session time: "+localtime+"s");
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }

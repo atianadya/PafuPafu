@@ -33,6 +33,8 @@ import org.xml.sax.SAXException;
 public class XMLHandler {
     
     public static PafuDefault pf = PafuDefault.getShared();
+    public static int ttime, tlove,tlife,tgender;
+    public static String tpafuname, tplayer;
     
     public static boolean isNameExist(String name) {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -78,7 +80,38 @@ public class XMLHandler {
         }
     }
     
-    public static void save(Pet pafupafu) { // pass player, pet, life, love
+    public static void load(String playerName) {
+        try {
+            File xmlFile = new File("savefile.xml");
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
+            Document doc = documentBuilder.parse(xmlFile);
+            Element dataElmt = doc.getDocumentElement();
+            
+            if (!isNameExist(playerName)) {
+                System.out.println("gak ada");
+            } else {
+                // load file
+                System.out.println("lalala");
+                int playerIdx = findNameIdx(playerName);
+                NodeList nl = doc.getElementsByTagName("Player");
+                Element playerNode = (Element) nl.item(playerIdx);
+                
+                tplayer = playerName;
+                ttime = Integer.parseInt(playerNode.getElementsByTagName("elapsedtime").item(0).getTextContent());
+                tpafuname = playerNode.getElementsByTagName("pafuname").item(0).getTextContent();
+                tgender = Integer.parseInt(playerNode.getElementsByTagName("gender").item(0).getTextContent());
+                System.out.println("gender" +tgender);
+                tlove = Integer.parseInt(playerNode.getElementsByTagName("love").item(0).getTextContent());
+                tlife = Integer.parseInt(playerNode.getElementsByTagName("life").item(0).getTextContent());
+            }
+            
+        } catch (ParserConfigurationException | SAXException | IOException pce) {
+              pce.printStackTrace();
+        }
+    }
+    
+    public static void save(Pet pafupafu, Player player) {
             try {
               File xmlFile = new File("savefile.xml");
               DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -87,49 +120,58 @@ public class XMLHandler {
               Document doc = documentBuilder.parse(xmlFile);
               Element dataElmt = doc.getDocumentElement();
               
-              if (!isNameExist("new")) {
+              if (!isNameExist(player.getPlayerName())) {
                   System.out.println("documentElement:" + dataElmt.toString());
                   
 //                  Element pafuElmt = (Element) dataElmt.getElementsByTagName("PafuPafu").item(0);
 
                   Element newPlayer = doc.createElement("Player");
-                  newPlayer.setAttribute("name", "new");
+                  newPlayer.setAttribute("name", player.getPlayerName());
                   
                   Element pafuname = doc.createElement("pafuname");
-                  pafuname.appendChild(doc.createTextNode("pafuname"));
+                  pafuname.appendChild(doc.createTextNode(pafupafu.getName()));
                   newPlayer.appendChild(pafuname);
                   
+                  Element gender = doc.createElement("gender");
+                  gender.appendChild(doc.createTextNode(Integer.toString(pafupafu.getGender())));
+                  newPlayer.appendChild(gender);
+                  
                   Element elapsedtime = doc.createElement("elapsedtime");
-                  elapsedtime.appendChild(doc.createTextNode("<player time>"));
+                  elapsedtime.appendChild(doc.createTextNode(Integer.toString(player.getElapsedTime())));
                   newPlayer.appendChild(elapsedtime);
                   
                   Element love = doc.createElement("love");
-                  love.appendChild(doc.createTextNode("<love value>"));
+                  love.appendChild(doc.createTextNode(Integer.toString(LoveMeter.getLoveVal())));
                   newPlayer.appendChild(love);
                   
                   Element life = doc.createElement("life");
-                  life.appendChild(doc.createTextNode("<love value>"));
+                  life.appendChild(doc.createTextNode(Integer.toString(LifeMeter.getLifeVal())));
                   newPlayer.appendChild(life);
                   
                   dataElmt.appendChild(newPlayer);
                   
               } else {
-                  int playerIdx = findNameIdx("new");
+                  int playerIdx = findNameIdx(player.getPlayerName());
                   System.out.println(playerIdx);
                   NodeList nl = doc.getElementsByTagName("Player");
                   Element nNode = (Element) nl.item(playerIdx);
                   
-                  Node elapsedtime = nNode.getChildNodes().item(1);
+                  Node elapsedtime = nNode.getChildNodes().item(2);
                   Node timetxt = elapsedtime.getFirstChild();
-                  timetxt.setTextContent("modified");
+                  timetxt.setTextContent(Integer.toString(player.getElapsedTime()));
                   
-                  Node love = nNode.getChildNodes().item(2);
+                  Node gender = nNode.getChildNodes().item(1);
+                  Node gendertxt = gender.getFirstChild();
+                  System.out.println("gender:"+pafupafu.getGender());
+                  gendertxt.setTextContent(Integer.toString(pafupafu.getGender()));
+                  
+                  Node love = nNode.getChildNodes().item(3);
                   Node lovetxt = love.getFirstChild();
-                  lovetxt.setTextContent("modified");
+                  lovetxt.setTextContent(Integer.toString(LoveMeter.getLoveVal()));
                   
-                  Node life = nNode.getChildNodes().item(3);
+                  Node life = nNode.getChildNodes().item(4);
                   Node lifetxt = life.getFirstChild();
-                  lifetxt.setTextContent("modified");
+                  lifetxt.setTextContent(Integer.toString(LifeMeter.getLifeVal()));
               }
                 doc.replaceChild(dataElmt, dataElmt);
                 Transformer tFormer = TransformerFactory.newInstance().newTransformer();

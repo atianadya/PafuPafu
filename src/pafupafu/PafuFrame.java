@@ -17,7 +17,8 @@ import javax.swing.event.ChangeListener;
  */
 public class PafuFrame extends javax.swing.JFrame {
     
-    private Pet pafuinst;
+    public static Pet pafuinst;
+    public static Player player;
     public static int GAME_TYPE = 0;
     CardLayout cl = new CardLayout();
     ImageIcon icon = new ImageIcon (Toolkit.getDefaultToolkit().getImage(getClass().getResource("images/Chibi_Cat_1_small.png")));
@@ -33,8 +34,42 @@ public class PafuFrame extends javax.swing.JFrame {
         this.setIconImage(icon.getImage());
         if (GAME_TYPE==1){
             setupPanel.setVisible(false);
+            setFromLoad(XMLHandler.tplayer, XMLHandler.tpafuname, XMLHandler.tgender, XMLHandler.tlove, XMLHandler.tlife, XMLHandler.ttime);
+            
+            Timer timer = new Timer("t1");
+            timer.start();
+            
+            ((javax.swing.border.TitledBorder) playpenPanel.getBorder()).setTitle(pafuinst.getName()+"'s Pen");
+            playpenPanel.repaint();
+
+            petGPlabel.setText("");
+            if (pafuinst.getType()==0)
+                petGPlabel.setIcon(icon);
+            else
+                petGPlabel.setIcon(icon1);
+            
             playPanel.setVisible(true);
         }
+    }
+    
+    public void setFromLoad(String playername, String pafuname, int gender, int love, int life, int elapsedtime) {
+        player = new Player();
+        player.setPlayerName(playername);
+        player.setElapsedTime(elapsedtime);
+        
+        if (elapsedtime > 20)
+            pafuinst = new WingPafu();
+        else
+            pafuinst = new PafuDefault();
+        
+        pafuinst.setName(pafuname);
+        pafuinst.setGender(gender);
+        
+        LifeMeter.setLifeValue(life);
+        LoveMeter.setLoveValue(love);
+        
+        jProgressBar1.setValue(LifeMeter.getLifeVal()*20);
+        jProgressBar2.setValue(LoveMeter.getLoveVal()*20);
     }
 
     /**
@@ -73,6 +108,7 @@ public class PafuFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
         jProgressBar2 = new javax.swing.JProgressBar();
+        evolveButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(513, 386));
@@ -268,18 +304,28 @@ public class PafuFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton3.setText("jButton3");
+        jButton3.setText("Burger");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jButton5.setText("jButton5");
+        jButton5.setText("Brush");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
-        jButton6.setText("jButton6");
+        jButton6.setText("Candy");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("jButton7");
+        jButton7.setText("Radio");
 
         javax.swing.GroupLayout actionPanelLayout = new javax.swing.GroupLayout(actionPanel);
         actionPanel.setLayout(actionPanelLayout);
@@ -314,6 +360,13 @@ public class PafuFrame extends javax.swing.JFrame {
 
         jLabel8.setText("LOVE Meter");
 
+        evolveButton.setText("Evolve");
+        evolveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                evolveButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -324,7 +377,8 @@ public class PafuFrame extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(jLabel8)
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(evolveButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -338,7 +392,8 @@ public class PafuFrame extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(evolveButton))
         );
 
         javax.swing.GroupLayout playPanelLayout = new javax.swing.GroupLayout(playPanel);
@@ -353,7 +408,7 @@ public class PafuFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(playPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(playPanelLayout.createSequentialGroup()
-                        .addGap(0, 17, Short.MAX_VALUE)
+                        .addGap(0, 63, Short.MAX_VALUE)
                         .addComponent(quitButton))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -390,9 +445,15 @@ public class PafuFrame extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-        if (jTextField1.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "PafuPafu name can't be empty!");
+        if (jTextField1.getText().equals("") || nameTextField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Name can't be empty!");
+        } else if (XMLHandler.isNameExist(nameTextField.getText())) {
+            JOptionPane.showMessageDialog(null, "Player exists");
         } else {
+            player = new Player();
+            player.setPlayerName(nameTextField.getText());
+            player.addPlayertoPlayerList();
+            
             CardLayout card = (CardLayout)mainPanel.getLayout();
             card.show(mainPanel, "panel3");
             
@@ -419,22 +480,28 @@ public class PafuFrame extends javax.swing.JFrame {
 
     private void quitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButtonActionPerformed
 
-        int confirm = JOptionPane.showOptionDialog(this, "Are you sure you want to quit?", "Exit PlayPen", 0, 3, null, null, cl);
+        int confirm = JOptionPane.showOptionDialog(this, "Are you sure you want to quit? Your game will be automatically saved.", "Exit PlayPen", 0, 3, null, null, cl);
         if (confirm == JOptionPane.YES_OPTION) {
             this.dispose();
             Main.lf.showMain();
             Timer.timerFlag = true;
+            System.out.println(pafuinst.getName());
+            System.out.println("pafugender quit button:"+pafuinst.getGender());
+            XMLHandler.save(pafuinst, player);
+//            player.save("");
         }
         
     }//GEN-LAST:event_quitButtonActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
-        // change PafuPafu's stats
-        // placeholder
-        jProgressBar1.setValue(50);
-        jProgressBar2.setValue(30);
-        // placeholder
+        Items burger = new Burger();
+        burger.updateMeter();
+        jProgressBar1.setValue(LifeMeter.getLifeVal()*20);
+        jProgressBar2.setValue(LoveMeter.getLoveVal()*20);
+        if (pafuinst.getState()==0) {
+            JOptionPane.showMessageDialog(null, "Your PafuPafu dies :(");
+        }
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -463,6 +530,34 @@ public class PafuFrame extends javax.swing.JFrame {
         // if exists then show message box
         // if not set new player name from here
     }//GEN-LAST:event_nameTextFieldActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // brush
+        Items brush = new Brush();
+        brush.updateMeter();
+        jProgressBar1.setValue(LifeMeter.getLifeVal()*20);
+        jProgressBar2.setValue(LoveMeter.getLoveVal()*20);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // candy
+        Items candy = new Candy();
+        candy.updateMeter();
+        jProgressBar1.setValue(LifeMeter.getLifeVal()*20);
+        jProgressBar2.setValue(LoveMeter.getLoveVal()*20);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void evolveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evolveButtonActionPerformed
+        if (Player.elapsedTime >= 20) {
+//            Pet temp = new WingPafu();
+//            temp = pafuinst;
+//            pafuinst = temp;
+            petGPlabel.setIcon(icon1);
+            evolveButton.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Your PafuPafu is not ready to evolve yet");
+        }
+    }//GEN-LAST:event_evolveButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -495,12 +590,12 @@ public class PafuFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PafuFrame().setVisible(true);
-                
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel actionPanel;
+    private javax.swing.JButton evolveButton;
     private javax.swing.JToggleButton genderButton;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

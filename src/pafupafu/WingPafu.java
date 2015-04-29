@@ -5,29 +5,45 @@
  */
 package pafupafu;
 
-import java.lang.String;
 /**
  *
- * @author Thea
+ * @author Atia
  */
-public class WingPafu extends Pet {
-    private int x;
-    private int y;
+public class WingPafu extends PafuDefault {
     private int type = 1;
-    
-    public boolean IsFly(){
-        if (x.y)!= (x,y){
-        return true;
-    } else {
-            return false;
-            }
-     };
-    
-   
+    private static WingPafu wpafu;
     
     public void fly() {
-        // metode pafu bersayap
-        fly(x,y);
-    };
+        // ??
+    }
     
+    public static WingPafu getShared() {
+        if (wpafu == null)
+            wpafu = new WingPafu();
+        return wpafu;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public int getGender() {
+        return gender;
+    }
+    
+    public int getState() {
+        return state;
+    }
+    
+    public int getType() {
+        return type;
+    }
 }
