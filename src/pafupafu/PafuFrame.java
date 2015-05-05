@@ -326,6 +326,11 @@ public class PafuFrame extends javax.swing.JFrame {
         });
 
         jButton7.setText("Radio");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout actionPanelLayout = new javax.swing.GroupLayout(actionPanel);
         actionPanel.setLayout(actionPanelLayout);
@@ -470,7 +475,6 @@ public class PafuFrame extends javax.swing.JFrame {
             }
             
             
-            
             pafuinst.setName(jTextField1.getText());
             
             Timer timer = new Timer("t1");
@@ -569,6 +573,16 @@ public class PafuFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Your PafuPafu is not ready to evolve yet");
         }
     }//GEN-LAST:event_evolveButtonActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        Items radio = new Radio();
+        radio.updateMeter();
+        jProgressBar1.setValue(LifeMeter.getLifeVal()*20);
+        jProgressBar2.setValue(LoveMeter.getLoveVal()*20);
+        if (pafuinst.getState()==0) {
+            JOptionPane.showMessageDialog(null, "Your PafuPafu dies :(");
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><PafuPafu>
+	<Player>
+		<pafuname/>
+		<gender/>
+		<elapsedtime/>
+		<love/>
+		<live/>
+	</Player>
+<Player name="martha"><pafuname>sda</pafuname><gender>1</gender><elapsedtime>70</elapsedtime><love>5</love><life>3</life></Player><Player name="atia"><pafuname>llalala</pafuname><gender>1</gender><elapsedtime>108</elapsedtime><love>5</love><life>2</life></Player><Player name="ss"><pafuname>hehe</pafuname><gender>1</gender><elapsedtime>5</elapsedtime><love>3</love><life>3</life></Player><Player name="marie"><pafuname>hahaha</pafuname><gender>1</gender><elapsedtime>6</elapsedtime><love>0</love><life>0</life></Player><Player name="lalala"><pafuname>lelail</pafuname><gender>0</gender><elapsedtime>12</elapsedtime><love>5</love><life>-21</life></Player><Player name="asdasd"><pafuname>ad</pafuname><gender>0</gender><elapsedtime>35</elapsedtime><love>5</love><life>3</life></Player><Player name="mew"><pafuname>mew</pafuname><gender>0</gender><elapsedtime>14</elapsedtime><love>4</love><life>2</life></Player><Player name="test"><pafuname>test</pafuname><gender>0</gender><elapsedtime>27</elapsedtime><love>5</love><life>1</life></Player><Player name="test2"><pafuname>test2</pafuname><gender>0</gender><elapsedtime>8</elapsedtime><love>0</love><life>0</life></Player></PafuPafu>
